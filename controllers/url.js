@@ -26,7 +26,8 @@ async function handleGenerateNewShortenedURL(req,res)
         await URL.create({
             shortenedURL: shortenURL,
             redirectURL: body.url,
-            visitHistory: []
+            visitHistory: [],
+            createdBy: req.user._id,
         }); 
     }
 
