@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        form {
+            display: grid;
+            grid-template-columns: auto auto; /* Two columns: one for label, one for input */
+            /* grid-gap: 2px;  Gap between grid items */
+            max-width: 300px; /* Optional: Set a max-width to limit the form width */
+        }
+
+        label {
+            grid-column: 1 / 2; /* Label spans the first column */
+            align-self: center; /* Align label vertically center */
+        }
+
+        input {
+            grid-column: 2 / 3; /* Input spans the second column */
+        }
+        button {
+            grid-column: -2 / 2; /* Button spans both columns */
+            justify-self: center; /* Center button horizontally */
+            
+            margin-top: 10px; /* Optional: Add margin to separate button from inputs */
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+
+    <form action="/user/login" method="post">
+        <label for="name">Email</label>
+        <input type="text" required name="email">
+        <br>
+        <label for="name">Password</label>
+        <input type="text" required name="password"> 
+
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

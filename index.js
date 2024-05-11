@@ -1,24 +1,31 @@
 //imports
 const express = require("express");
 const path = require("path");
+const cookieParser = require("cookie-parser");
+const { restrictToLoggedInUserOnly,checkAuthentication }  = require("./middlewares/auth");
 const { connectToMongodb } = require("./connection");
 const URL = require("./models/url");
-const urlRoute = require("./routes/url");
-const staticRoute = require("./routes/staticRouter");
+
 const app = express();
 const PORT = 8000;
+
+//routes
+const urlRoute = require("./routes/url");
+const staticRoute = require("./routes/staticRouter");
+const userRoute = require("./routes/user");
 
 //connection to MongoDB
 connectToMongodb("mongodb://localhost:27017/url-shortener")
 .then(() => console.log("MongoDb connected successfully"));
 
-//middleware
+//middlewares
 app.use(express.json()); // this is used to avoid cannot read properties of read null for body
-
 app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
 
-app.use("/url", urlRoute);
-app.use("/", staticRoute);
+app.use("/url",restrictToLoggedInUserOnly, urlRoute); //here the restrictToLoggedInUserOnly acts as a inline middleware
+app.use("/",checkAuthentication, staticRoute);
+app.use("/user", userRoute);
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
