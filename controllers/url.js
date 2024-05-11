@@ -27,9 +27,13 @@ async function handleGenerateNewShortenedURL(req,res)
             shortenedURL: shortenURL,
             redirectURL: body.url,
             visitHistory: []
-        });
+        }); 
     }
-    return res.json({shortenedURL: shortenURL});
+
+    return res.render("home",{
+        shortenedURL: shortenURL
+    });
+    // return res.json({shortenedURL: shortenURL});
 }
 
 //to get analytics of the shortened URL
