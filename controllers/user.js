@@ -30,13 +30,13 @@ async function handleUserLogIn(req,res){
     // res.cookie("uid", sessionId);
 
     //stateless authentication - JWT
-    // const token = setUser(user); 
-    // res.cookie("uid", token);
-    // return res.redirect("/");
+    const token = setUser(user); 
+    res.cookie("token", token);
+    return res.redirect("/");
 
     //bearer authentication--header
-    const token = setUser(user); 
-    return res.json({ token });
+    // const token = setUser(user); 
+    // return res.json({ token });
     
 }
 
